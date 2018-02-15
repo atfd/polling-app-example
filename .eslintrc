@@ -15,7 +15,7 @@
     "import/prefer-default-export": 0
   },
   "settings": {
-    "import/core-modules": ["react"]
+    "import/core-modules": ["react", "prop-types"]
   },
   "plugins": ["prettier"],
   "parser": "babel-eslint",
