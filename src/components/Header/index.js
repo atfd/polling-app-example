@@ -23,8 +23,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const BACKGROUND_COLOR =
-  'background-image: linear-gradient(116deg, #08AEEA 0%, #2AF598 100%)';
+const BACKGROUND_COLOR = 'background-color: #20232a';
 
 const Header = ({ backgroundColor }) => (
   <HeaderContainer backgroundColor={backgroundColor}>
