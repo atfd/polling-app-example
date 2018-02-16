@@ -3,15 +3,11 @@ import Link from 'gatsby-link';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-const HeaderContainer = styled.header`
-  ${props => props.backgroundColor};
-  margin-bottom: 1.45rem;
-`;
+import { Container } from '../../styledComponents/layout';
 
-const HeaderWrapper = styled.div`
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 1.45rem 1.0875rem;
+const HeaderContainer = styled.header`
+  ${props => props.background};
+  margin-bottom: 1.45rem;
 `;
 
 const Heading1 = styled.h1`
@@ -23,24 +19,25 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-const BACKGROUND_COLOR = 'background-color: #20232a';
+const BACKGROUND = 'background-color: #20232a';
 
-const Header = ({ backgroundColor }) => (
-  <HeaderContainer backgroundColor={backgroundColor}>
-    <HeaderWrapper>
+const Header = ({ background, title }) => (
+  <HeaderContainer background={background}>
+    <Container>
       <Heading1>
-        <StyledLink to="/">Polling App</StyledLink>
+        <StyledLink to="/">{title}</StyledLink>
       </Heading1>
-    </HeaderWrapper>
+    </Container>
   </HeaderContainer>
 );
 
 Header.defaultProps = {
-  backgroundColor: BACKGROUND_COLOR,
+  background: BACKGROUND,
 };
 
 Header.propTypes = {
-  backgroundColor: PropTypes.string,
+  background: PropTypes.string,
+  title: PropTypes.string,
 };
 
 export default Header;
