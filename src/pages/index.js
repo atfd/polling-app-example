@@ -6,7 +6,7 @@ import { Heading2 } from '../styledComponents/typography';
 
 const IndexPage = () => (
   <div>
-    <Heading2>A next generation polling application</Heading2>
+    <Heading2>A next-generation polling application</Heading2>
     <p>
       Built from the ground up - Ut pariatur velit eu fugiat ut. Veniam commodo
       non esse proident ut anim irure voluptate commodo aliqua tempor Lorem
