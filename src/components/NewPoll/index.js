@@ -70,7 +70,7 @@ const SortableItem = SortableElement(
 const SortableList = SortableContainer(({ options, ...props }) => {
   return (
     <OptionsContainer>
-      {options.map((option, index) => {
+      {options.filter(Boolean).map((option, index) => {
         return (
           <SortableItem {...option} {...props} index={index} key={option.id} />
         );

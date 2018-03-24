@@ -110,6 +110,8 @@ class NewPollPage extends Component {
   handleAddItem = () => {
     // if the user spams add w/o writing any text the items w/o any text get removed
     const options = this.state.options
+      // filter out any falsy values from the list
+      .filter(Boolean)
       .filter(({ text }) => text)
       .map(option => ({
         ...option,
