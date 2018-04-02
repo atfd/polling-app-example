@@ -139,6 +139,7 @@ class PollContainer extends Component {
   };
 
   checkVote(uid) {
+    console.log('checkvote', uid)
     this.results
       .doc(uid)
       .get()
