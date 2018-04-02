@@ -116,7 +116,7 @@ class PollContainer extends Component {
   handleVote = () => {
     const { uid } = this.props;
     const { selection } = this.state;
-
+    console.log('handlevote', uid)
     this.setState({
       loading: true,
     });
@@ -160,7 +160,7 @@ class PollContainer extends Component {
       .catch(error => {
         // eslint-disable-next-line no-console
         console.error(error);
-        // TODO: notify the user of the error
+        // TODO: notify the user of the error`
       });
   }
 
