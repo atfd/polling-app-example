@@ -74,15 +74,11 @@ class PollContainer extends Component {
   // since we don't know when the user will be authenticated if ever,
   // we need to add checks here and sign in anonymously if not
   componentWillReceiveProps(nextProps) {
-    const { uid, signIn } = this.props;
+    const { uid } = this.props;
     const { uid: nextUid } = nextProps;
 
     if ((!uid && !nextUid) || (uid && !nextUid)) {
-      signIn('anonymous').catch(error => {
-        // eslint-disable-next-line no-console
-        console.error(error);
-        // TODO: notify the user of the error
-      });
+      this.signInAnonymously();
     } else {
       // a uid exists, check if the user has already voted
       this.checkVote(nextUid);
@@ -116,30 +112,48 @@ class PollContainer extends Component {
   handleVote = () => {
     const { uid } = this.props;
     const { selection } = this.state;
-    console.log('handlevote', uid)
-    this.setState({
-      loading: true,
-    });
-
-    // store the users vote in a sub-collection
-    this.results
-      .doc(uid)
-      .set({
-        optionId: selection,
-        uid,
-      })
-      .then(() => {
-        this.setState({
-          loading: false,
-          hasVoted: true,
-        });
-
-        this.startResultListener();
+    const vote = uid => {
+      this.setState({
+        loading: true,
       });
+
+      // store the users vote in a sub-collection
+      this.results
+        .doc(uid)
+        .set({
+          optionId: selection,
+          uid,
+        })
+        .then(() => {
+          this.setState({
+            loading: false,
+            hasVoted: true,
+          });
+
+          this.startResultListener();
+        });
+    };
+    // in the case a user votes and they've not been logged in
+    if (!uid) {
+      this.signInAnonymously().then(({ uid }) => {
+        vote(uid);
+      });
+    } else {
+      vote(uid);
+    }
   };
 
+  signInAnonymously() {
+    const { signIn } = this.props;
+
+    return signIn('anonymous').catch(error => {
+      // eslint-disable-next-line no-console
+      console.error(error);
+      // TODO: notify the user of the error
+    });
+  }
+
   checkVote(uid) {
-    console.log('checkvote', uid)
     this.results
       .doc(uid)
       .get()
@@ -160,7 +174,7 @@ class PollContainer extends Component {
       .catch(error => {
         // eslint-disable-next-line no-console
         console.error(error);
-        // TODO: notify the user of the error`
+        // TODO: notify the user of the error
       });
   }
 
